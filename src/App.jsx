@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "./App.css"
 function App() {
   const [adddisplay, setdisplay] = useState({ condition: true, value: "add" });
+  const [filterdata, setfilterdata] = useState()
   const [name, setname] = useState()
   const [image, setimage] = useState()
 
@@ -17,8 +18,16 @@ function App() {
     setdisplay({ condition: false, value: "Add" })
   }
   let [selectPerson, setselectPerson] = useState(false)
-  function selectPersonFoo() {
+  function selectPersonFoo(index) {
+    // console.log(index);
     setselectPerson(true)
+    let filterd = fri.filter((ele, indexNum) => {
+      // console.log(ele,indexNum);
+      return indexNum === index
+    })
+    setfilterdata(filterd)
+    // console.log(filterd);
+
   }
 
 
@@ -29,7 +38,6 @@ function App() {
     }
     setfri([...fri, newfri])
     setdisplay({ condition: false, value: "Add" })
-
   }
 
   const [selectNumOwner, setNumOwner] = useState();
@@ -49,9 +57,15 @@ function App() {
   }
   function Splitbill() {
     setselectPerson(false)
-    console.log(selectNumOwner);
-    console.log(otherPersonNum);
-    console.log(selectedValue);
+    // console.log(selectNumOwner);
+    // console.log(otherPersonNum);
+    // console.log(selectedValue);
+    // let kharcha = true
+    let totlapyse = Number(Number(selectNumOwner) + Number(otherPersonNum))
+    console.log(totlapyse);
+    let abjopyselenehenwo = totlapyse - selectedValue
+    console.log(abjopyselenehenwo, ' ye pyse wo dega jis n pyse nh diye ');
+
   }
   return (
     <>
@@ -73,7 +87,7 @@ function App() {
         </div >
       </div>
       <div className='parent'>
-        {fri.map((ele) => (
+        {fri.map((ele, index) => (
           <>
             <div className="user">
               <img src={ele.image} alt="" />
@@ -81,30 +95,34 @@ function App() {
               <br />
               <span>{ele.desc}</span>
               <div>
-                <button onClick={selectPersonFoo}> Select</button>
+                <button onClick={() => selectPersonFoo(index)}> Select</button>
                 {selectPerson === true ?
                   (
                     <div className='selectModal'>
                       <h1>Split a bill with name</h1>
                       <div className="calculate">
-                        <ul className="name">
-                          <li>Your expense</li>
-                          <li>name expense</li>
-                          <li>Who is paying the bill</li>
-                        </ul>
-                        <ul className="input">
-                          <li><input type="number" onChange={owner} /></li>
-                          <li><input type="number" onChange={otherPerson} /></li>
-                          <li>
-                            <select value={setValue} onChange={handleSelectChange } >
-                              <option value=""></option>
-                              <option value="owner">owner</option>
-                              <option value="otherPerson">otherPerson</option>
-                            </select>
-                          </li>
-                        </ul>
+                        {filterdata.map((ele) => (
+                          <>
+                            <ul className="name">
+                              <li>Your expense</li>
+                              <li>{ele.name} expense</li>
+                              <li>Who is paying the bill</li>
+                            </ul>
+                            <ul className="input">
+                              <li><input type="number" onChange={owner} /></li>
+                              <li><input type="number" onChange={otherPerson} /></li>
+                              <li>
+                                <select value={setValue} onChange={handleSelectChange} >
+                                  <option value=""></option>
+                                  <option value={selectNumOwner}>owner</option>
+                                  <option value={otherPersonNum}>{ele.name}</option>
+                                </select>
+                              </li>
+                            </ul>
+                          </>
+                        ))}
                       </div>
-                      <button onClick={Splitbill}>Split bill</button>
+                      <button onClick={() => Splitbill()}>Split bill</button>
                     </div>)
                   :
                   ""
