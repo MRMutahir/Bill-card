@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./App.css"
 function App() {
-  const [adddisplay, setdisplay] = useState({ condition: false, value: "add" });
+  const [adddisplay, setdisplay] = useState({ condition: true, value: "add" });
   const [name, setname] = useState()
   const [image, setimage] = useState()
 
@@ -16,37 +16,41 @@ function App() {
   function closemodal() {
     setdisplay({ condition: false, value: "Add" })
   }
+  let [selectPerson, setselectPerson] = useState(false)
+  function selectPersonFoo() {
+    setselectPerson(true)
+  }
+  function Splitbill() {
+    setselectPerson(false)
+  }
 
-  function getfri() {
+  function addfri() {
     let newfri = {
       name: name,
       image: image
     }
     setfri([...fri, newfri])
-    // console.log(newfri);
+    setdisplay({ condition: false, value: "Add" })
 
-    //  let resValue = [ name, image ]
-    // // console.log(...resValue);
-    //  setrestList({name,image})
-    // // setfri([...resValue])
-    //  console.log(restList);
   }
   return (
     <>
-      <div className="addbtn">
-        <button onClick={adddisplay.value === "Close" ? closemodal : showmodal}>
-          {adddisplay.value}
-        </button>
-      </div >
       <div className="popapone" >
         {adddisplay.condition === true ?
-          (<div>
+          (<div className='addListmodal'>
             < input type="text" placeholder='name' onChange={(e) => setname(e.target.value)} />
             <input type="text" placeholder='image' onChange={(e) => setimage(e.target.value)} />
-            <button onClick={getfri}>add</button></div>
+            <button onClick={addfri}>add</button>
+
+          </div>
           )
           : console.log('Fals hen')
         }
+        <div className="addbtn">
+          <button onClick={adddisplay.value === "Close" ? closemodal : showmodal}>
+            {adddisplay.value}
+          </button>
+        </div >
       </div>
       <div className='parent'>
         {fri.map((ele) => (
@@ -56,7 +60,36 @@ function App() {
               <h1>{ele.name} </h1>
               <br />
               <span>{ele.desc}</span>
-              <button>Select</button>
+              <div>
+                <button onClick={selectPersonFoo}> Select</button>
+                {selectPerson === true ?
+                  (
+                    <div className='selectModal'>
+                      <h1>Split a bill with name</h1>
+                      <div className="calculate">
+                        <ul className="name">
+                          <li>Your expense</li>
+                          <li>name expense</li>
+                          <li>Who is paying the bill</li>
+                        </ul>
+                        <ul className="input">
+                          <li><input type="number" /></li>
+                          <li><input type="number" /></li>
+                          <li>
+                            <select name="" id="">
+                              <option value="">You</option>
+                              <option value="">name</option>
+                            </select>
+                          </li>
+                        </ul>
+                      </div>
+                      <button onClick={Splitbill}>Split bill</button>
+                    </div>)
+                  :
+                  ""
+                }
+
+              </div>
             </div></>
         ))}</div>
     </>
