@@ -20,9 +20,7 @@ function App() {
   function selectPersonFoo() {
     setselectPerson(true)
   }
-  function Splitbill() {
-    setselectPerson(false)
-  }
+
 
   function addfri() {
     let newfri = {
@@ -32,6 +30,28 @@ function App() {
     setfri([...fri, newfri])
     setdisplay({ condition: false, value: "Add" })
 
+  }
+
+  const [selectNumOwner, setNumOwner] = useState();
+  const [otherPersonNum, setotherPersonNum] = useState();
+  const [selectedValue, setValue] = useState();
+
+  function owner(e) {
+    // console.log(e.target.value);
+    setNumOwner(e.target.value)
+  }
+  function otherPerson(e) {
+    // console.log(e.target.value);
+    setotherPersonNum(e.target.value)
+  }
+  function handleSelectChange(e) {
+    setValue(e.target.value)
+  }
+  function Splitbill() {
+    setselectPerson(false)
+    console.log(selectNumOwner);
+    console.log(otherPersonNum);
+    console.log(selectedValue);
   }
   return (
     <>
@@ -73,12 +93,13 @@ function App() {
                           <li>Who is paying the bill</li>
                         </ul>
                         <ul className="input">
-                          <li><input type="number" /></li>
-                          <li><input type="number" /></li>
+                          <li><input type="number" onChange={owner} /></li>
+                          <li><input type="number" onChange={otherPerson} /></li>
                           <li>
-                            <select name="" id="">
-                              <option value="">You</option>
-                              <option value="">name</option>
+                            <select value={setValue} onChange={handleSelectChange } >
+                              <option value=""></option>
+                              <option value="owner">owner</option>
+                              <option value="otherPerson">otherPerson</option>
                             </select>
                           </li>
                         </ul>
@@ -95,5 +116,6 @@ function App() {
     </>
   )
 }
+
 
 export default App
