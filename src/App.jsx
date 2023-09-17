@@ -26,7 +26,7 @@ function App() {
       return indexNum === index
     })
     setfilterdata(filterd)
-    // console.log(filterd);
+    console.log(filterd);
 
   }
 
@@ -34,7 +34,8 @@ function App() {
   function addfri() {
     let newfri = {
       name: name,
-      image: image
+      image: image,
+      desc: "this time no charge"
     }
     setfri([...fri, newfri])
     setdisplay({ condition: false, value: "Add" })
@@ -57,15 +58,28 @@ function App() {
   }
   function Splitbill() {
     setselectPerson(false)
-    // console.log(selectNumOwner);
-    // console.log(otherPersonNum);
-    // console.log(selectedValue);
-    // let kharcha = true
+    let bb = filterdata.map((ele) => {
+      // return ele
+      console.log(ele);
+    })
+    // console.log(bb);
     let totlapyse = Number(Number(selectNumOwner) + Number(otherPersonNum))
     console.log(totlapyse);
     let abjopyselenehenwo = totlapyse - selectedValue
     console.log(abjopyselenehenwo, ' ye pyse wo dega jis n pyse nh diye ');
+    if (selectedValue !== selectNumOwner) {
+      console.log(abjopyselenehenwo, "ab ye pyse owner dega");
+    } else if (selectedValue !== otherPersonNum) {
+      console.log(abjopyselenehenwo, " ab ye pyse dost dega");
+      // selectUserDetail.desc = `${selectUserDetail.name}owes you 100`
 
+    } else {
+      console.log("kxh howa hi nh ");
+    }
+    // console.log(desc);
+    // let newMeassage =  filterdata.desc
+    // desc = "hi"
+    // console.log(selectUserDetail);
   }
   return (
     <>
@@ -75,10 +89,9 @@ function App() {
             < input type="text" placeholder='name' onChange={(e) => setname(e.target.value)} />
             <input type="text" placeholder='image' onChange={(e) => setimage(e.target.value)} />
             <button onClick={addfri}>add</button>
-
           </div>
           )
-          : console.log('Fals hen')
+          : ""
         }
         <div className="addbtn">
           <button onClick={adddisplay.value === "Close" ? closemodal : showmodal}>
@@ -107,6 +120,7 @@ function App() {
                               <li>Your expense</li>
                               <li>{ele.name} expense</li>
                               <li>Who is paying the bill</li>
+                              <li>{ele.desc}</li>
                             </ul>
                             <ul className="input">
                               <li><input type="number" onChange={owner} /></li>
