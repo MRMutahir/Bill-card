@@ -58,28 +58,27 @@ function App() {
   }
   function Splitbill() {
     setselectPerson(false)
-    let bb = filterdata.map((ele) => {
-      // return ele
-      console.log(ele);
-    })
-    // console.log(bb);
+    // setinnerdata(...filterdata)
+
     let totlapyse = Number(Number(selectNumOwner) + Number(otherPersonNum))
     console.log(totlapyse);
     let abjopyselenehenwo = totlapyse - selectedValue
-    console.log(abjopyselenehenwo, ' ye pyse wo dega jis n pyse nh diye ');
+    // console.log(abjopyselenehenwo, ' ye pyse wo dega jis n pyse nh diye ');
     if (selectedValue !== selectNumOwner) {
-      console.log(abjopyselenehenwo, "ab ye pyse owner dega");
+      filterdata.map((ele) => {
+        // console.log(`${ele.desc = `you owes ${ele.name}`} ${abjopyselenehenwo}`);
+        setfilterdata([...filterdata, ele.desc = ` you owes  ${ele.name} ${abjopyselenehenwo}`])
+      })
+      // console.log(abjopyselenehenwo, "ab ye pyse owner dega");
     } else if (selectedValue !== otherPersonNum) {
-      console.log(abjopyselenehenwo, " ab ye pyse dost dega");
-      // selectUserDetail.desc = `${selectUserDetail.name}owes you 100`
-
+      filterdata.map((ele) => {
+        // console.log(`${ele.desc = `${ele.name} owes you`} ${abjopyselenehenwo}`);
+        setfilterdata(...filterdata, ele.desc = `${ele.name}  owes you ${abjopyselenehenwo}`)
+      })
     } else {
       console.log("kxh howa hi nh ");
     }
-    // console.log(desc);
-    // let newMeassage =  filterdata.desc
-    // desc = "hi"
-    // console.log(selectUserDetail);
+    console.log(filterdata);
   }
   return (
     <>
@@ -120,7 +119,7 @@ function App() {
                               <li>Your expense</li>
                               <li>{ele.name} expense</li>
                               <li>Who is paying the bill</li>
-                              <li>{ele.desc}</li>
+                              {/* <li>{ele.desc}</li> */}
                             </ul>
                             <ul className="input">
                               <li><input type="number" onChange={owner} /></li>
