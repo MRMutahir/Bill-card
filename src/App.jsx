@@ -6,6 +6,7 @@ function App() {
   const [totalValue, settotalValue] = useState();
   const [name, setname] = useState();
   const [image, setimage] = useState();
+  const [color, setcolor] = useState();
 
   let [fri, setfri] = useState([
     {
@@ -69,6 +70,8 @@ function App() {
   function handleSelectChange(e) {
     setValue(e.target.value);
   }
+
+
   function Splitbill() {
     setselectPerson(false);
     // setinnerdata(...filterdata)
@@ -82,8 +85,9 @@ function App() {
         // console.log(`${ele.desc = `you owes ${ele.name}`} ${abjopyselenehenwo}`);
         setfilterdata([
           ...filterdata,
-          (ele.desc = `you owes${ele.name} ${abjopyselenehenwo}`),
+          (ele.desc = `you owes  ${ele.name} ${abjopyselenehenwo}`),
         ]);
+        // setcolor("red")
       });
       // console.log(abjopyselenehenwo, "ab ye pyse owner dega");
     } else if (selectedValue !== otherPersonNum) {
@@ -91,8 +95,9 @@ function App() {
         // console.log(`${ele.desc = `${ele.name} owes you`} ${abjopyselenehenwo}`);
         setfilterdata(
           ...filterdata,
-          (ele.desc = `${ele.name}  owes you ${abjopyselenehenwo}`)
+          (ele.desc = `${ele.name}  owes you ${abjopyselenehenwo}`),
         );
+        // setcolor("red")
       });
     } else {
       return alert("check input Value")
@@ -135,7 +140,7 @@ function App() {
               <img src={ele.image} alt="" />
               <h1>{ele.name} </h1>
               <br />
-              <span>{ele.desc}</span>
+              <span className="green-text" style={{ color: "green" }}>{ele.desc}</span>
               <div>
                 <button onClick={() => selectPersonFoo(index)}> Select</button>
                 {selectPerson === true ? (
