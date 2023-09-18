@@ -165,9 +165,9 @@ function App() {
                             </li>
                             <li>
                               <select
+                              className="selectInput"
                                 value={setValue}
-                                onChange={handleSelectChange}
-                              >
+                                onChange={handleSelectChange}>
                                 <option value=""></option>
                                 <option value={selectNumOwner}>owner</option>
                                 <option value={otherPersonNum}>
